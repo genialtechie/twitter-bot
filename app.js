@@ -30,12 +30,14 @@ const App = {
                     App.twtObj.text = `${element.text}`;
                     App.twtObj.reply_to_id = `${element.id_str}`;
                     App.twtObj.username = `${element.user.screen_name}`;
+                    //manipulate text and remove hashtag
                     App.twtObj.text = App.twtObj.text.split(' ');
                     App.twtObj.text.pop();
                     App.twtObj.text = App.twtObj.text.join(' ');
+                    //push id to array
                     App.twtObj.tweets_ids.push(element.id_str);
                     
-                console.log(App.twtObj.tweets_ids)
+                    console.log(App.twtObj.tweets_ids)
                     //App.captionMeme(App.twtObj.text);
                 } else return;
             });

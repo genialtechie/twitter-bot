@@ -4,14 +4,15 @@ This is a JavaScript app that uses both the IMGFlip and Twitter api. It sends a 
 
 # Requirements
 * Twitter Developer account with elevated access to API. [Apply here, its completely free!](https://developer.twitter.com/en/apply-for-access "Named link title")
-* IMGFlip account
+* Imgflip account
  
 # Usage 
 * Clone this repository
 * Run `npm install` to install dependencies
 * Create a .env file 
 * Get required twitter and IMGFlip credentials, and store in env file
-* Run `node app.js`, and there you go, your meme will be tweeted.
-* Play around with the texts and/or change the picture gotten from the API! 
+* Tweet with #GTMBot
+* Run `node app.js`, and there you go, your tweet will be made to a meme and sent as a reply to your tweet.
+* Play around with the texts and/or change the picture id gotten from the API! 
 
 Feel free to suggest any upgrades/ corrections.
