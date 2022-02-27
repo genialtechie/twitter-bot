@@ -2,11 +2,13 @@ require('dotenv').config();
 const axios = require('axios').default;
 const Twitter = require('twitter');
 const fs = require('fs');
+const storage = require('node-persist');
+
 
 const App = {
     meme: { id: '102156234' },
     twtObj: {
-        //tweets_ids: [],
+        tweets_ids: [],
         text: '',
         reply_to_id: '',
         username: ''
@@ -22,10 +24,11 @@ const App = {
     searchTweets: () => {
         App.client.get('search/tweets', { q: '#GTMBot' }, function (error, tweets, response) {
             const tweetsArr = tweets.statuses;
-            tweetsArr.forEach(element => {
+            tweetsArr.forEach(async element => {
+                await storage.init();
+                App.twtObj.tweets_ids = await storage.getItem('twt_ids');
                 const found = App.twtObj.tweets_ids.includes(element.id_str);
-                console.log(found);
-
+                //Run this code if the tweet hasn't been replied to before
                 if (!found) {
                     App.twtObj.text = `${element.text}`;
                     App.twtObj.reply_to_id = `${element.id_str}`;
@@ -36,9 +39,9 @@ const App = {
                     App.twtObj.text = App.twtObj.text.join(' ');
                     //push id to array
                     App.twtObj.tweets_ids.push(element.id_str);
-                    
+                    await storage.setItem('twt_ids', App.twtObj.tweets_ids);
                     console.log(App.twtObj.tweets_ids)
-                    //App.captionMeme(App.twtObj.text);
+                    App.captionMeme(App.twtObj.text);
                 } else return;
             });
         });
