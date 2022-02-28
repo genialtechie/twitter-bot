@@ -25,8 +25,10 @@ const App = {
         App.client.get('search/tweets', { q: '#GTMBot' }, function (error, tweets, response) {
             const tweetsArr = tweets.statuses;
             tweetsArr.forEach(async element => {
+                //init node-persist and update the tweets_ids array
                 await storage.init();
                 App.twtObj.tweets_ids = await storage.getItem('twt_ids');
+                console.log(App.twtObj.tweets_ids)
                 const found = App.twtObj.tweets_ids.includes(element.id_str);
                 //Run this code if the tweet hasn't been replied to before
                 if (!found) {
@@ -40,7 +42,6 @@ const App = {
                     //push id to array
                     App.twtObj.tweets_ids.push(element.id_str);
                     await storage.setItem('twt_ids', App.twtObj.tweets_ids);
-                    console.log(App.twtObj.tweets_ids)
                     App.captionMeme(App.twtObj.text);
                 } else return;
             });
@@ -71,8 +72,7 @@ const App = {
             responseType: 'stream'
         });
         //pipe data to root folder
-        res.data.pipe(fs.createWriteStream('meme.jpg'));
-        
+        await res.data.pipe(fs.createWriteStream('meme.jpg'));
         const img = fs.readFileSync('./meme.jpg');
         App.client.post('media/upload', {media: img}, (error, media, response) => {
             if(!error) {
