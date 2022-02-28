@@ -28,7 +28,6 @@ const App = {
                 //init node-persist and update the tweets_ids array
                 await storage.init();
                 App.twtObj.tweets_ids = await storage.getItem('twt_ids');
-                console.log(App.twtObj.tweets_ids)
                 const found = App.twtObj.tweets_ids.includes(element.id_str);
                 //Run this code if the tweet hasn't been replied to before
                 if (!found) {
