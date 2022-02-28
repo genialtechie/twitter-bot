@@ -15,4 +15,4 @@ This is a JavaScript app that uses both the IMGFlip and Twitter api. It sends a 
 * Run `node app.js`, and there you go, your tweet will be made to a meme and sent as a reply to your tweet.
 * Play around with the texts and/or change the picture id gotten from the API! 
 
-Feel free to suggest any upgrades/ corrections.
+Or you can just log into twitter and tweet with #GTMBot and the bot will mock your tweet!
